@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Сайт, посвященный моей любви к Алине">
+    <title>Алина - любовь моей жизни</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #D10000;
+            --primary-light: #FFEAEA;
+            --primary-dark: #A00000;
+            --text-color: #222222;
+            --text-light: #555555;
+            --background: #FFFFFF;
+            --black: #111111;
+            --white: #FFFFFF;
+            --gray-light: #F5F5F5;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 25px rgba(0,0,0,0.15);
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 14px;
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.7;
+            color: var(--text-color);
+            background-color: var(--background);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--black);
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #000000, #1a1a1a);
+            color: var(--white);
+            text-align: center;
+            padding: 8rem 1rem 6rem;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 4px solid var(--primary-color);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            transform: translateY(0);
+            transition: transform 0.6s ease-out;
+        }
+        
+        h1 {
+            font-size: clamp(2.8rem, 6vw, 4.5rem);
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.5px;
+            color: var(--white);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.3s forwards;
+        }
+        
+        .header-subtitle {
+            font-size: 1.4rem;
+            opacity: 0;
+            margin-bottom: 3rem;
+            font-weight: 300;
+            animation: fadeInUp 1s ease-out 0.6s forwards;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+        
+        .header-decoration {
+            position: absolute;
+            opacity: 0.03;
+            color: var(--white);
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            z-index: 1;
+        }
+        
+        .decoration-1 {
+            top: -30px;
+            left: -50px;
+            font-size: 240px;
+            transform: rotate(-10deg);
+            animation: float 15s ease-in-out infinite alternate;
+        }
+        
+        .decoration-2 {
+            bottom: -80px;
+            right: -40px;
+            font-size: 280px;
+            transform: rotate(15deg);
+            animation: float 18s ease-in-out infinite alternate-reverse;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 1rem;
+        }
+        
+        section {
+            margin-bottom: 6rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+            color: var(--black);
+            position: relative;
+            font-size: 2.5rem;
+            padding-bottom: 1.5rem;
+        }
+        
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 120px;
+            height: 4px;
+            background: var(--primary-color);
+            margin: 2rem auto 0;
+            border-radius: 2px;
+            transform: scaleX(0);
+            transform-origin: center;
+            transition: transform 0.6s ease-out 0.3s;
+        }
+        
+        section.visible .section-title:after {
+            transform: scaleX(1);
+        }
+        
+        .love-letter {
+            background: var(--white);
+            padding: 4rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            max-width: 800px;
+            margin: -5rem auto 0;
+            position: relative;
+            z-index: 3;
+            border: 1px solid var(--gray-light);
+            transform: translateY(50px);
+            opacity: 0;
+            transition: all 0.8s ease-out 0.4s;
+        }
+        
+        .love-letter.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .love-letter:before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            border: 1px solid var(--primary-light);
+            border-radius: calc(var(--radius-lg) - 5px);
+            pointer-events: none;
+        }
+        
+        .love-letter p {
+            margin-bottom: 2rem;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease-out;
+        }
+        
+        .love-letter.visible p {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .love-letter p:nth-child(2) { transition-delay: 0.6s; }
+        .love-letter p:nth-child(3) { transition-delay: 0.8s; }
+        .love-letter p:nth-child(4) { transition-delay: 1s; }
+        
+        .signature {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            text-align: right;
+            margin-top: 3rem;
+            font-size: 1.4rem;
+            color: var(--primary-dark);
+            opacity: 0;
+            transform: translateX(20px);
+            transition: all 0.6s ease-out 1.2s;
+        }
+        
+        .love-letter.visible .signature {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .gallery-item {
+            position: relative;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            aspect-ratio: 4/5;
+            border: 1px solid rgba(0,0,0,0.05);
+            transform: scale(0.95);
+            opacity: 0;
+        }
+        
+        .gallery-item.visible {
+            animation: popIn 0.6s ease-out forwards;
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+            filter: grayscale(15%) brightness(0.95);
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-light);
+            z-index: 2;
+        }
+        
+        .gallery-item:hover .gallery-img {
+            transform: scale(1.05);
+            filter: grayscale(0%) brightness(1);
+        }
+        
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+            padding: 2rem 1.5rem 1.5rem;
+            opacity: 0;
+            transition: var(--transition);
+            transform: translateY(20px);
+        }
+        
+        .gallery-item:hover .gallery-caption {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .gallery-caption h3 {
+            color: var(--white);
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .gallery-caption p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+        
+        .videos-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .video-container {
+            margin: 5rem auto;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        
+        .video-container.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .video-container:nth-child(1) { transition-delay: 0.2s; }
+        .video-container:nth-child(2) { transition-delay: 0.4s; }
+        
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-lg);
+            background: var(--black);
+            transform: perspective(1000px) rotateX(5deg);
+            transition: transform 0.6s ease-out;
+        }
+        
+        .video-container:hover .video-wrapper {
+            transform: perspective(1000px) rotateX(0deg);
+        }
+        
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .video-caption {
+            margin-top: 2rem;
+            font-size: 1.3rem;
+            color: var(--text-color);
+            font-weight: 500;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.6s ease-out 0.3s;
+        }
+        
+        .video-container.visible .video-caption {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .memories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+        
+        .memory-card {
+            background: var(--white);
+            border-radius: var(--radius-md);
+            padding: 2.5rem;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border: 1px solid var(--gray-light);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .memory-card.visible {
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .memory-card:nth-child(1) { transition-delay: 0.2s; }
+        .memory-card:nth-child(2) { transition-delay: 0.4s; }
+        .memory-card:nth-child(3) { transition-delay: 0.6s; }
+        
+        .memory-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary-color);
+            transition: var(--transition);
+        }
+        
+        .memory-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-light);
+        }
+        
+        .memory-card:hover:before {
+            width: 8px;
+        }
+        
+        .memory-date {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .memory-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--black);
+            transition: var(--transition);
+        }
+        
+        .memory-card:hover .memory-title {
+            color: var(--primary-dark);
+        }
+        
+        .memory-card p {
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+        
+        .music-player {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 100;
+            background: rgba(255,255,255,0.95);
+            border-radius: 50%;
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            cursor: pointer;
+            border: 2px solid var(--primary-color);
+            transition: var(--transition);
+            transform: scale(0);
+            animation: popIn 0.6s ease-out 1.5s forwards;
+        }
+        
+        .music-player:hover {
+            transform: scale(1.1);
+            background: var(--primary-light);
+        }
+        
+        .music-icon {
+            font-size: 28px;
+            color: var(--primary-color);
+            transition: var(--transition);
+        }
+        
+        .music-player:hover .music-icon {
+            transform: rotate(360deg);
+        }
+        
+        footer {
+            background: linear-gradient(135deg, #000000, #1a1a1a);
+            color: var(--white);
+            text-align: center;
+            padding: 6rem 1rem;
+            margin-top: 8rem;
+            border-top: 4px solid var(--primary-color);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .footer-heart {
+            color: var(--primary-color);
+            animation: pulse 1.8s infinite;
+            display: inline-block;
+            font-size: 1.5rem;
+            vertical-align: middle;
+        }
+        
+        .floating-hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+        
+        .heart {
+            position: absolute;
+            opacity: 0;
+            color: var(--primary-color);
+            animation: float-up 10s linear infinite;
+            font-size: 1.5rem;
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--white);
+            font-size: 1.2rem;
+            opacity: 0.7;
+            animation: bounce 2s infinite;
+            z-index: 10;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes popIn {
+            0% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            80% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.3); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.8; }
+        }
+        
+        @keyframes float-up {
+            0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+            20% { opacity: 0.3; }
+            80% { opacity: 0.3; }
+            100% { transform: translateY(-20vh) scale(1); opacity: 0; }
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) rotate(-10deg); }
+            100% { transform: translateY(-20px) rotate(-10deg); }
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+            40% { transform: translateY(-20px) translateX(-50%); }
+            60% { transform: translateY(-10px) translateX(-50%); }
+        }
+        
+        @media (max-width: 768px) {
+            .love-letter {
+                padding: 3rem 2rem;
+                margin-top: -3rem;
+            }
+            
+            .memory-card {
+                padding: 2rem;
+            }
+            
+            .gallery {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+            
+            .music-player {
+                width: 60px;
+                height: 60px;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            header {
+                padding: 6rem 1rem 4rem;
+            }
+            
+            .love-letter {
+                padding: 2.5rem 1.5rem;
+            }
+            
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+                margin-bottom: 3rem;
+            }
+            
+            .music-player {
+                width: 50px;
+                height: 50px;
+                bottom: 15px;
+                right: 15px;
+            }
+            
+            .music-icon {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <audio id="bgMusic" loop>
+        <source src="love8.mp3" type="audio/mp3">
+    </audio>
+    <div class="music-player" id="musicToggle">
+        <div class="music-icon">♫</div>
+    </div>
+    
+    <header>
+        <div class="header-content">
+            <h1><span class="footer-heart">❤</span>Алиночка <span class="footer-heart">❤</span></h1>
+            <p class="header-subtitle">
+                В той сказочной дали, где цветет мечта,
+                Живет Алиночка, светлая, как мечта.
+                Ее глазки искрятся, как звезды в ночи,
+                А сердце словно вальс, звучит в тишине.
+                
+                Алиночка, моя принцесска, ты — счастья свет,
+                Твоя улыбка нежна, как утренний рассвет.
+                Ты, как котёночек, пушистый и милый,
+                Обнимаю я крепко, ты — любовь моя, честно.
+                
+                Среди серых будней ты — яркий цветок,
+                Алине, твой свет — это жизни итог.
+                Мы вместе, как в сказке, где нет преград,
+                В сердце моем навсегда будет твой взгляд.</p>
+        </div>
+        <div class="header-decoration decoration-1">LOVE</div>
+        <div class="header-decoration decoration-2">ALINA</div>
+        <div class="scroll-indicator">↓</div>
+    </header>
+    
+    <main class="container">
+        <section class="love-letter">
+            <h2 class="section-title">Моё письмо к тебе</h2>
+            <p>Дорогая Алина,</p>
+            <p>
+                С момента нашей встречи моя жизнь обрела новые краски. Твоя улыбка — как вспышка света в темноте, 
+                она озаряет всё вокруг и наполняет моё сердце теплом. Каждая минута, проведённая с тобой, 
+                становится бесценным подарком, который я бережно храню в памяти.
+            </p>
+            <p>
+                В тебе удивительным образом сочетаются сила и нежность, мудрость и лёгкость. 
+                Твой смех — самая прекрасная музыка, а глаза — бездонные океаны, в которых я готов раствориться.
+            </p>
+            <p>
+                Этот сайт — лишь скромное отражение тех чувств, что переполняют меня. 
+                Ты заслуживаешь всего самого прекрасного, и я сделаю всё, чтобы каждый твой день был наполнен радостью и любовью.
+            </p>
+            <div class="signature">
+                С любовью,<br>
+                Кирюша
+            </div>
+        </section>
+        
+        <section>
+            <h2 class="section-title">Наши моменты</h2>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="love1.jpg" class="gallery-img">
+                    <div class="gallery-caption">
+                        <h3>Твоя улыбка</h3>
+                        <p>Свет, который согревает моё сердце</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="love2.jpg" class="gallery-img">
+                    <div class="gallery-caption">
+                        <h3>Естественная красота</h3>
+                        <p>Гармония с окружающим миром</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="love3.jpg" class="gallery-img">
+                    <div class="gallery-caption">
+                        <h3>Городские огни</h3>
+                        <p>Но ты — самый яркий свет</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="love4.jpg" class="gallery-img">
+                    <div class="gallery-caption">
+                        <h3>Моменты счастья</h3>
+                        <p>Которые хочется сохранить навсегда</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="love5.jpg" class="gallery-img">
+                    <div class="gallery-caption">
+                        <h3>Размышления</h3>
+                        <p>Как я стала счастливой в один миг?</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="love6.jpg" class="gallery-img">
+                    <div class="gallery-caption">
+                        <h3>Вечерний образ</h3>
+                        <p>Ты прекрасна в любом наряде</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="love9.jpg" class="gallery-img">
+                    <div class="gallery-caption">
+                        <h3>Прогулки вместе</h3>
+                        <p>Каждый шаг с тобой - приключение</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="love10.jpg" class="gallery-img">
+                    <div class="gallery-caption">
+                        <h3>Домашние прогулки</h3>
+                        <p>Ты заслуживаешь только самого лучшего</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="love11.jpg" class="gallery-img">
+                    <div class="gallery-caption">
+                        <h3>Восходящие солнце</h3>
+                        <p>Когда солнце целует твои черты</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="love12.jpg" class="gallery-img">
+                    <div class="gallery-caption">
+                        <h3>Кофейные свидания</h3>
+                        <p>Люблю наши уютные посиделки</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="love13.jpg" class="gallery-img">
+                    <div class="gallery-caption">
+                        <h3>Тихие вечера</h3>
+                        <p>Когда можно просто быть рядом</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="love14.jpg" class="gallery-img">
+                    <div class="gallery-caption">
+                        <h3>Праздничное настроение</h3>
+                        <p>С тобой каждый день - праздник</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="love15.jpg" class="gallery-img">
+                    <div class="gallery-caption">
+                        <h3>Элегантность</h3>
+                        <p>Ты красива в любом образе</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="love16.jpg" class="gallery-img">
+                    <div class="gallery-caption">
+                        <h3>Сюрпризы для тебя</h3>
+                        <p>Твоя радость - моё счастье</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="love17.jpg" class="gallery-img">
+                    <div class="gallery-caption">
+                        <h3>Мама</h3>
+                        <p>Первое знакомство</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <h2 class="section-title">Видосики</h2>
+            <div class="videos-container">
+                <div class="video-container">
+                    <div class="video-wrapper">
+                        <iframe src="love7.mp4" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <p class="video-caption">Твой особенный день — 24 декабря 2007</p>
+                </div>
+                <div class="video-container">
+                    <div class="video-wrapper">
+                        <iframe src="love18.mp4" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <p class="video-caption">Покаштушки на коньках</p>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <h2 class="section-title">Наши воспоминания</h2>
+            <div class="memories">
+                <div class="memory-card">
+                    <div class="memory-date">26 СЕНТЯБРЯ 2024</div>
+                    <h3 class="memory-title">Первая встреча</h3>
+                    <p>День, когда всё изменилось. Ты вошла в мою жизнь, и я сразу понял — это начало чего-то невероятного. Первый взгляд, первая улыбка, первые слова — всё это навсегда останется в моей памяти.</p>
+                </div>
+                <div class="memory-card">
+                    <div class="memory-date">8 ОКТЯБРЯ 2024</div>
+                    <h3 class="memory-title">Предложение руки и сердца</h3>
+                    <p>Без тебя мне уже не дышать, не видеть смысла этой жизни. Ты стала для меня важной, особенной, желанной и самой необходимой. Моя любовь к тебе безгранична. Моё сердце принадлежит только тебе. Прошу, стань моей женой.</p>
+                </div>
+                <div class="memory-card">
+                    <div class="memory-date">24 ДЕКАБРЯ 2007</div>
+                    <h3 class="memory-title">Твой день рождения</h3>
+                    <p>День, когда мир стал прекраснее. Видеть тебя счастливой — самый ценный подарок. Каждый год в эту дату я буду благодарить судьбу за то, что ты появилась на свет.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="floating-hearts" id="hearts-container"></div>
+        <div class="footer-content">
+            <p>Создано с любовью <span class="footer-heart">❤</span> специально для тебя, Алиночка! © 2025</p>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const bgMusic = document.getElementById('bgMusic');
+            const musicToggle = document.getElementById('musicToggle');
+            let isPlaying = false;
+            bgMusic.volume = 0.07;
+            
+            function createHearts() {
+                const heartsContainer = document.getElementById('hearts-container');
+                const heartCount = 30;
+                
+                for (let i = 0; i < heartCount; i++) {
+                    setTimeout(() => {
+                        const heart = document.createElement('div');
+                        heart.classList.add('heart');
+                        heart.innerHTML = '❤';
+                        heart.style.left = Math.random() * 100 + '%';
+                        heart.style.animationDuration = (5 + Math.random() * 15) + 's';
+                        heart.style.animationDelay = Math.random() * 5 + 's';
+                        heart.style.fontSize = (Math.random() * 1 + 1) + 'rem';
+                        heartsContainer.appendChild(heart);
+                    }, i * 300);
+                }
+            }
+            
+            function checkVisibility() {
+                const sections = document.querySelectorAll('section');
+                const galleryItems = document.querySelectorAll('.gallery-item');
+                const memoryCards = document.querySelectorAll('.memory-card');
+                const videoContainers = document.querySelectorAll('.video-container');
+                
+                sections.forEach(section => {
+                    const sectionTop = section.getBoundingClientRect().top;
+                    if (sectionTop < window.innerHeight - 100) {
+                        section.classList.add('visible');
+                    }
+                });
+                
+                galleryItems.forEach((item, index) => {
+                    const itemTop = item.getBoundingClientRect().top;
+                    if (itemTop < window.innerHeight - 100) {
+                        setTimeout(() => {
+                            item.classList.add('visible');
+                        }, index * 100);
+                    }
+                });
+                
+                memoryCards.forEach((card, index) => {
+                    const cardTop = card.getBoundingClientRect().top;
+                    if (cardTop < window.innerHeight - 100) {
+                        setTimeout(() => {
+                            card.classList.add('visible');
+                        }, index * 200);
+                    }
+                });
+                
+                videoContainers.forEach((container, index) => {
+                    const containerTop = container.getBoundingClientRect().top;
+                    if (containerTop < window.innerHeight - 100) {
+                        setTimeout(() => {
+                            container.classList.add('visible');
+                        }, index * 300);
+                    }
+                });
+            }
+            
+            function playMusic() {
+                bgMusic.muted = false;
+                bgMusic.play()
+                    .then(() => {
+                        isPlaying = true;
+                        musicToggle.innerHTML = '<div class="music-icon">♫</div>';
+                    })
+                    .catch(() => {
+                        musicToggle.style.display = 'flex';
+                    });
+            }
+            
+            function pauseMusic() {
+                bgMusic.pause();
+                isPlaying = false;
+                musicToggle.innerHTML = '<div class="music-icon">♪</div>';
+            }
+            
+            musicToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (isPlaying) {
+                    pauseMusic();
+                } else {
+                    playMusic();
+                }
+            });
+            
+            document.addEventListener('click', function initAudio() {
+                playMusic();
+                document.removeEventListener('click', initAudio);
+            }, { once: true });
+            
+            window.addEventListener('scroll', checkVisibility);
+            window.addEventListener('load', function() {
+                checkVisibility();
+                createHearts();
+                document.querySelector('.love-letter').classList.add('visible');
+            });
+            
+            document.querySelectorAll('.gallery-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
